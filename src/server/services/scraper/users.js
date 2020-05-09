@@ -1,6 +1,6 @@
 const debug = require('debug')('dos')
 const config = require('config')
-
+const { locations, usernamesToInclude } = require("../../../../config/user");
 const srv = require('..')
 const utils = require('../../utils')
 
@@ -15,12 +15,12 @@ module.exports = {
     debug('Scrape users data...')
 
     // Scrape users data for each defined locations.
-    for (const location of config.get('users.locations')) {
+    for (const location of locations) {
       await this.scrapeUsers(`location:"${location}"`)
     }
 
     // Scrape users data for specific users (those who can't be scraped by their location).
-    const usernamesChunks = utils.chunk(config.get('users.include'), 50)
+    const usernamesChunks = utils.chunk(usernamesToInclude, 50)
     for (const usernames of usernamesChunks) {
       const query = usernames.map(username => `user:${username}`).join(' ')
       await this.scrapeUsers(query)

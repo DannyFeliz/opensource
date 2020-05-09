@@ -1,11 +1,11 @@
+require('dotenv').config()
 require('isomorphic-fetch')
-
-const config = require('config')
+const { API_URI, API_TOKEN } = process.env;
 const { GraphQLClient } = require('graphql-request')
 
-const client = new GraphQLClient(config.get('github.api.uri'), {
+const client = new GraphQLClient(API_URI, {
   headers: {
-    Authorization: `bearer ${config.get('github.api.token')}`
+    Authorization: `bearer ${API_TOKEN}`
   }
 })
 
