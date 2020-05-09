@@ -9,6 +9,7 @@
     "config": "^1.26.1",
     "cross-env": "^5.0.1",
     "debug": "4.0.1",
+    "dotenv": "^8.2.0",
     "favicons-webpack-plugin": "^0.0.7",
     "fs-extra": "^4.0.1",
     "isomorphic-fetch": "^2.2.1",
