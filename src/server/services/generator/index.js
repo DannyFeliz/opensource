@@ -24,7 +24,9 @@ module.exports = {
    */
   async generateUsers() {
     debug('Generating data for users...')
-    const users = await User.findAll()
+    const users = await User.findAll({
+      attributes: ['login', 'name', 'avatarUrl', 'company', 'followers', 'following', 'sources']
+    })
     debug('Generating data for %d users.', users.length)
     return await fs.writeJSON(path.join(target, 'users.json'), users)
   },
@@ -35,7 +37,9 @@ module.exports = {
    */
   async generateRepos() {
     debug('Generating data for repos...')
-    const repos = await Repo.findAll()
+    const repos = await Repo.findAll({
+      attributes: ['name', 'description', 'url', 'languages', 'stargazers']
+    })
     debug('Generating data for %d repos.', repos.length)
     return await fs.writeJSON(path.join(target, 'repos.json'), repos)
   }
