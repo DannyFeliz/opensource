@@ -25,7 +25,7 @@ module.exports = {
   async generateUsers() {
     debug('Generating data for users...')
     const users = await User.findAll({
-      attributes: ['login', 'name', 'avatarUrl', 'company', 'followers', 'following', 'sources']
+      attributes: ['login', 'name', 'url', 'avatarUrl', 'company', 'followers', 'sources', 'forked']
     })
     debug('Generating data for %d users.', users.length)
     return await fs.writeJSON(path.join(target, 'users.json'), users)
