@@ -25,7 +25,7 @@ module.exports = {
   async generateUsers() {
     debug('Generating data for users...')
     const users = await User.findAll({
-      attributes: ['login', 'name', 'url', 'avatarUrl', 'company', 'followers', 'sources', 'forked'],
+      attributes: ['id', 'login', 'name', 'url', 'avatarUrl', 'company', 'followers', 'sources', 'forked'],
       order: [
         ['followers', 'DESC']
       ]
@@ -41,7 +41,7 @@ module.exports = {
   async generateRepos() {
     debug('Generating data for repos...')
     const repos = await Repo.findAll({
-      attributes: ['name', 'description', 'url', 'languages', 'stargazers'],
+      attributes: ['id', 'name', 'description', 'url', 'languages', 'stargazers'],
       order: [
         ['stargazers', 'DESC']
       ]
