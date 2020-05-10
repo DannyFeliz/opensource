@@ -24,12 +24,18 @@ module.exports = {
    */
   async generateUsers() {
     debug('Generating data for users...')
-    const users = await User.findAll({
-      attributes: ['id', 'login', 'name', 'url', 'avatarUrl', 'company', 'followers', 'sources', 'forked'],
+    let users = await User.findAll({
+      attributes: ['login', 'name', 'url', 'avatarUrl', 'company', 'followers', 'sources', 'forked'],
       order: [
         ['followers', 'DESC']
       ]
     })
+
+    users = users.map((user, position) => {
+      user.dataValues.position = position + 1;
+      return user;
+    });
+
     debug('Generating data for %d users.', users.length)
     return await fs.writeJSON(path.join(target, 'users.json'), users)
   },
@@ -40,12 +46,18 @@ module.exports = {
    */
   async generateRepos() {
     debug('Generating data for repos...')
-    const repos = await Repo.findAll({
-      attributes: ['id', 'name', 'description', 'url', 'languages', 'stargazers'],
+    let repos = await Repo.findAll({
+      attributes: ['name', 'description', 'url', 'languages', 'stargazers'],
       order: [
         ['stargazers', 'DESC']
       ]
     })
+
+    repos = repos.map((repo, position) => {
+      repo.dataValues.position = position + 1;
+      return repo;
+    })
+
     debug('Generating data for %d repos.', repos.length)
     return await fs.writeJSON(path.join(target, 'repos.json'), repos)
   }
